@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -24,6 +26,10 @@ async function bootstrap() {
   Logger.log(`Server enabled cors = ${corsEnabled}`, 'Bootstrap');
 
   await app.listen(appPort || 3000);
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 
   Logger.log(`🚀 Server running on: ${await app.getUrl()}`, 'Bootstrap');
 }
