@@ -5,12 +5,16 @@ import { User } from '../entities/user.entity';
 import { Response } from 'express';
 import { UserRegisterDto } from '../dtos/user-register.dto';
 import { plainToInstance } from 'class-transformer';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('list')
+  @ApiOkResponse({
+    description: 'Return all roles'
+  })
   async findAllUsers(@Res() res: Response<APIResponse<User[]>>) {
     const users = await this.userService.findAll();
 
@@ -22,6 +26,12 @@ export class UserController {
   }
 
   @Post('register')
+  @ApiCreatedResponse({
+    description: 'Create user Success'
+  })
+  @ApiBadRequestResponse({
+    description: 'Create User failed'
+  })
   async register(
     @Body() payload: UserRegisterDto,
     @Res() res: Response<APIResponse<User>>,
