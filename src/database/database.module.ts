@@ -16,7 +16,7 @@ import { User } from 'src/modules/user/entities/user.entity';
                 database: configService.get<string>('MYSQL_DB'),
                 entities: [User, Role],
                 synchronize: true,
-                logging: true,
+                // logging: true,
             }),
             inject: [ConfigService],
         }),
