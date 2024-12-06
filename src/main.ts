@@ -49,7 +49,7 @@ async function bootstrap() {
     SwaggerModule.setup(swaggerConfig.path, app, documentFactory, {
         swaggerOptions: {
             persistAuthorization: true,
-        }
+        },
     });
 
     await app.listen(appPort || 3000);
