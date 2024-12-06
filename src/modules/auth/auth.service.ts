@@ -3,11 +3,11 @@ import {
     Injectable,
     NotFoundException,
 } from '@nestjs/common';
-import { User } from 'src/modules/user/entities/user.entity';
-import { UserService } from 'src/modules/user/services/user.service';
+import { User } from 'src/modules/user/user.entity';
+import { UserService } from 'src/modules/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { LoginResponseDto } from '../dtos/login-response.dto';
+import { LoginResponseDto } from './dtos/login-response.dto';
 import { UserRegisterDto } from 'src/modules/user/dtos/user-register.dto';
 import { ConfigService } from '@nestjs/config';
 

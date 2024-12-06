@@ -7,17 +7,17 @@ import {
     Res,
     UseGuards,
 } from '@nestjs/common';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
-import { AuthService } from '../services/auth.service';
-import { RequestWithUser } from '../intefaces/request-with-user.interface';
-import { LoginRequestDto } from '../dtos/login-request.dto';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { AuthService } from './auth.service';
+import { RequestWithUser } from './intefaces/request-with-user.interface';
+import { LoginRequestDto } from './dtos/login-request.dto';
 import { APIResponse } from 'src/shared/interfaces/api-response';
-import { LoginResponseDto } from '../dtos/login-response.dto';
+import { LoginResponseDto } from './dtos/login-response.dto';
 import { Response } from 'express';
 import { ApiBadRequestResponse, ApiCreatedResponse } from '@nestjs/swagger';
 import { UserRegisterDto } from 'src/modules/user/dtos/user-register.dto';
-import { User } from 'src/modules/user/entities/user.entity';
-import { UserService } from 'src/modules/user/services/user.service';
+import { User } from 'src/modules/user/user.entity';
+import { UserService } from 'src/modules/user/user.service';
 import { plainToInstance } from 'class-transformer';
 
 @Controller('auth')
