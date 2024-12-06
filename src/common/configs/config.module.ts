@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
+import config from './config';
 
 @Module({
     imports: [
@@ -10,6 +11,7 @@ import { ConfigModule as NestConfigModule } from '@nestjs/config';
                 '.env.test.local',
                 '.env.production.local',
             ],
+            load: [config],
             isGlobal: true,
         }),
     ],

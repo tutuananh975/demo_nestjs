@@ -4,6 +4,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerConfig } from './common/configs/config.interface';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const module: any;
 
@@ -12,28 +13,28 @@ async function bootstrap() {
         cors: true,
     });
 
-    app.useGlobalPipes(new ValidationPipe());
-    // set global prefix
-    app.setGlobalPrefix('api/v1');
-
     const configService = app.get(ConfigService);
     const appPort = configService.get<number>('APP_PORT');
     const corsEnabled = configService.get<boolean>('CORS_ENABLED');
+    const apiVersion = configService.get<string>('API_VERSION');
+    const swaggerConfig = configService.get<SwaggerConfig>('swagger');
+
+    app.useGlobalPipes(new ValidationPipe());
+    // set global prefix
+    app.setGlobalPrefix(apiVersion);
 
     // Cors
     if (corsEnabled) {
         app.enableCors();
     }
-    Logger.log(`Server enabled cors = ${corsEnabled}`, 'Bootstrap');
 
     const config = new DocumentBuilder()
-        .setTitle('Cats example')
-        .setDescription('The cats API description')
-        .setVersion('1.0')
-        .addTag('cats')
+        .setTitle(swaggerConfig.title)
+        .setDescription(swaggerConfig.description)
+        .setVersion(swaggerConfig.version)
         .build();
     const documentFactory = () => SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, documentFactory);
+    SwaggerModule.setup(swaggerConfig.path, app, documentFactory);
 
     await app.listen(appPort || 3000);
     if (module.hot) {
@@ -41,6 +42,7 @@ async function bootstrap() {
         module.hot.dispose(() => app.close());
     }
 
+    Logger.log(`Server enabled cors = ${corsEnabled}`, 'Bootstrap');
     Logger.log(`🚀 Server running on: ${await app.getUrl()}`, 'Bootstrap');
 }
 bootstrap();
