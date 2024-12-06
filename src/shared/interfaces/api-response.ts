@@ -6,7 +6,6 @@ import {
     NestInterceptor,
 } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
-import { CommonModule } from 'src/common/common.module';
 
 export interface APIResponse<T> {
     statusCode: HttpStatus;
