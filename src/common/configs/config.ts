@@ -7,6 +7,7 @@ const config: Config = {
         description: 'API document for fellows BackEnd API',
         version: '0.1',
         path: 'api',
+        tag: 'FELLOWS',
     },
     appConfig: {
         publicAPI: new Set<string>(['/auth/register', '/auth/login']),

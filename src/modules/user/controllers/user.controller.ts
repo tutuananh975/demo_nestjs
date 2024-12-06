@@ -4,7 +4,7 @@ import { APIResponse } from 'src/shared/interfaces/api-response';
 import { User } from '../entities/user.entity';
 import { Response } from 'express';
 import { plainToInstance } from 'class-transformer';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { Roles } from 'src/modules/auth/decorators/roles.decorator';
 import { UserRole } from 'src/modules/role/enums/user-role';
@@ -18,6 +18,7 @@ export class UserController {
     @ApiOkResponse({
         description: 'Return all roles',
     })
+    @ApiBearerAuth('access-token')
     async findAllUsers(
         @Res() res: Response<APIResponse<User[]>>,
         @CurrentUser() user: User | null,

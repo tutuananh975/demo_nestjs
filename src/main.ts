@@ -32,9 +32,25 @@ async function bootstrap() {
         .setTitle(swaggerConfig.title)
         .setDescription(swaggerConfig.description)
         .setVersion(swaggerConfig.version)
+        .addTag(swaggerConfig.tag)
+        .addBearerAuth(
+            {
+                description: `[just text field] Please enter token in following format: Bearer <JWT>`,
+                name: 'Authorization',
+                bearerFormat: 'Bearer',
+                scheme: 'Bearer',
+                type: 'http',
+                in: 'Header',
+            },
+            'access-token',
+        )
         .build();
     const documentFactory = () => SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup(swaggerConfig.path, app, documentFactory);
+    SwaggerModule.setup(swaggerConfig.path, app, documentFactory, {
+        swaggerOptions: {
+            persistAuthorization: true,
+        }
+    });
 
     await app.listen(appPort || 3000);
     if (module.hot) {

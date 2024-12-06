@@ -4,6 +4,7 @@ export interface Config {
 }
 
 export interface SwaggerConfig {
+    tag: string;
     enabled: boolean;
     title: string;
     description: string;
