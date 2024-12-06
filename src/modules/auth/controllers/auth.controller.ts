@@ -53,7 +53,7 @@ export class AuthController {
         @Body() payload: UserRegisterDto,
         @Res() res: Response<APIResponse<User>>,
     ) {
-        const user = await this.userService.register(payload);
+        const user = await this.authService.register(payload);
 
         res.status(HttpStatus.CREATED).json({
             statusCode: HttpStatus.CREATED,

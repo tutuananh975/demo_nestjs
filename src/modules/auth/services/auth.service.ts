@@ -8,12 +8,15 @@ import { UserService } from 'src/modules/user/services/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginResponseDto } from '../dtos/login-response.dto';
+import { UserRegisterDto } from 'src/modules/user/dtos/user-register.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
+        private readonly configService: ConfigService,
     ) {}
 
     async validateUser(username: string, password: string): Promise<User> {
@@ -44,5 +47,17 @@ export class AuthService {
             accessToken: this.jwtService.sign(payload),
             user,
         };
+    }
+
+    async register(payLoad: UserRegisterDto): Promise<User> {
+        const foundUser = await this.userService.findByUsername(
+            payLoad.username,
+        );
+        if (foundUser) {
+            throw new BadRequestException('user is already exists!');
+        }
+        const salt = this.configService.get('SALT');
+        const password = await bcrypt.hash(payLoad.password, Number(salt));
+        return this.userService.createUser({ ...payLoad, password });
     }
 }
