@@ -1,13 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseEntity } from 'src/common/entity/base.entity';
 import { User } from 'src/modules/user/entities/user.entity';
-import { Column, Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRole } from '../enums/user-role';
+import { BaseEntity } from 'src/shared/entities/base.entity';
 
 @Entity()
 export class Role extends BaseEntity {
-    @PrimaryColumn()
-    @Generated()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ length: 255, type: String, unique: true })

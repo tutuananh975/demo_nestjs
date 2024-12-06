@@ -1,6 +1,6 @@
 import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
 import { UserService } from '../services/user.service';
-import { APIResponse } from 'src/common/interfaces/api-response';
+import { APIResponse } from 'src/shared/interfaces/api-response';
 import { User } from '../entities/user.entity';
 import { Response } from 'express';
 import { plainToInstance } from 'class-transformer';

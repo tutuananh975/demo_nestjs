@@ -11,7 +11,7 @@ import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';
 import { RequestWithUser } from '../intefaces/request-with-user.interface';
 import { LoginRequestDto } from '../dtos/login-request.dto';
-import { APIResponse } from 'src/common/interfaces/api-response';
+import { APIResponse } from 'src/shared/interfaces/api-response';
 import { LoginResponseDto } from '../dtos/login-response.dto';
 import { Response } from 'express';
 import { ApiBadRequestResponse, ApiCreatedResponse } from '@nestjs/swagger';
