@@ -1,7 +1,7 @@
 import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
-import { UserService } from '../services/user.service';
+import { UserService } from './user.service';
 import { APIResponse } from 'src/shared/interfaces/api-response';
-import { User } from '../entities/user.entity';
+import { User } from './user.entity';
 import { Response } from 'express';
 import { plainToInstance } from 'class-transformer';
 import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
