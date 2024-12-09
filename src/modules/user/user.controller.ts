@@ -8,7 +8,6 @@ import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { Roles } from 'src/modules/auth/decorators/roles.decorator';
 import { UserRole } from 'src/modules/role/enums/user-role';
-import { CommonModule } from 'src/common/common.module';
 
 @Controller('user')
 export class UserController {
